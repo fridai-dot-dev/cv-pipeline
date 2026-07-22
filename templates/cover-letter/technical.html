@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Cover Letter — {{profile.name}}</title>
+<style>
+  /* Shared tokens (mirror of templates/cv/tokens.css) — technical skin */
+  :root {
+    --color-ink: #1a2332;
+    --color-muted: #5a6572;
+    --color-rule: #d9d4cc;
+    --color-bg: #ffffff;
+    --color-accent-tech: #0e7c86;
+    --font-serif: Georgia, 'Times New Roman', 'Nimbus Roman', serif;
+    --font-sans: 'Helvetica Neue', Helvetica, Arial, 'Liberation Sans', sans-serif;
+    --fs-name: 22pt;
+    --fs-body: 11pt;
+    --fs-meta: 9pt;
+    --lh-body: 1.5;
+    --space-1: 3pt;
+    --space-2: 6pt;
+    --space-3: 10pt;
+    --space-4: 16pt;
+    --space-5: 24pt;
+    --page-pad-y: 20mm;
+    --page-pad-x: 20mm;
+  }
+
+  @page { size: A4; margin: 0; }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--color-bg); }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    padding: var(--page-pad-y) var(--page-pad-x);
+  }
+
+  header.letterhead { margin-bottom: var(--space-4); }
+  .name {
+    font-size: var(--fs-name);
+    font-weight: 800;
+    letter-spacing: -0.3pt;
+    margin: 0;
+  }
+  .accent-bar {
+    height: 3pt;
+    width: 46pt;
+    background: var(--color-accent-tech);
+    margin: var(--space-2) 0;
+  }
+  .contact { font-size: var(--fs-meta); color: var(--color-muted); }
+  .contact .sep { color: var(--color-rule); padding: 0 var(--space-1); }
+
+  .date { color: var(--color-muted); margin: 0 0 var(--space-3) 0; }
+  .recipient { font-weight: 700; margin: 0 0 var(--space-4) 0; }
+  .greeting { margin: 0 0 var(--space-3) 0; }
+
+  p.body-para { margin: 0 0 var(--space-3) 0; }
+
+  .sign-off { margin-top: var(--space-4); }
+  .sign-name { font-weight: 700; color: var(--color-accent-tech); }
+</style>
+</head>
+<body>
+  <header class="letterhead">
+    <p class="name">{{profile.name}}</p>
+    <div class="accent-bar"></div>
+    <p class="contact">
+      <span>{{profile.email}}</span><span class="sep">/</span><span>{{profile.phone}}</span>
+    </p>
+  </header>
+
+  <p class="date">{{profile.date}}</p>
+
+  <p class="recipient">{{recipient.company}}</p>
+
+  <p class="greeting">Dear {{#if recipient.hiring_manager}}{{recipient.hiring_manager}}{{else}}Hiring Manager{{/if}},</p>
+
+  {{#each body_paragraphs}}
+  <p class="body-para">{{this}}</p>
+  {{/each}}
+
+  <div class="sign-off">
+    <p>Best regards,</p>
+    <p class="sign-name">{{profile.name}}</p>
+  </div>
+</body>
+</html>

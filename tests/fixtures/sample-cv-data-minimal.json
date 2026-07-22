@@ -1,0 +1,19 @@
+{
+  "profile": {
+    "name": "Alex Minimal",
+    "email": "alex@example.com",
+    "phone": "+64 21 987 6543",
+    "location": "Wellington, NZ"
+  },
+  "experience": [
+    {
+      "role": "Support Specialist",
+      "org": "Minimal Co",
+      "dates": "2020 - 2022",
+      "bullets": [
+        "Resolved customer tickets within SLA targets"
+      ]
+    }
+  ],
+  "skills": []
+}

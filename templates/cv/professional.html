@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>{{profile.name}} — CV</title>
+<style>
+  /* Shared tokens (mirror of templates/cv/tokens.css — kept in sync verbatim) */
+  :root {
+    --color-ink: #1a2332;
+    --color-muted: #5a6572;
+    --color-rule: #d9d4cc;
+    --color-bg: #ffffff;
+    --color-accent: #2c6e7f;
+    --color-accent-tech: #0e7c86;
+    --font-serif: Georgia, 'Times New Roman', 'Nimbus Roman', serif;
+    --font-sans: 'Helvetica Neue', Helvetica, Arial, 'Liberation Sans', sans-serif;
+    --fs-name: 26pt;
+    --fs-title: 12pt;
+    --fs-section: 11pt;
+    --fs-role: 11.5pt;
+    --fs-body: 10pt;
+    --fs-meta: 9pt;
+    --lh-body: 1.45;
+    --space-1: 3pt;
+    --space-2: 6pt;
+    --space-3: 10pt;
+    --space-4: 16pt;
+    --space-5: 24pt;
+    --page-pad-y: 16mm;
+    --page-pad-x: 16mm;
+  }
+
+  @page { size: A4; margin: 0; }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--color-bg);
+  }
+
+  body {
+    /* Professional skin: serif-forward, editorial and credible */
+    font-family: var(--font-serif);
+    color: var(--color-ink);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    /* Baked page padding — render-pdf.mjs uses zero PDF margins */
+    padding: var(--page-pad-y) var(--page-pad-x);
+  }
+
+  header.masthead {
+    border-bottom: 2px solid var(--color-accent);
+    padding-bottom: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .name {
+    font-size: var(--fs-name);
+    font-weight: 700;
+    letter-spacing: 0.3pt;
+    margin: 0 0 var(--space-1) 0;
+  }
+
+  .title {
+    font-size: var(--fs-title);
+    color: var(--color-accent);
+    font-style: italic;
+    margin: 0 0 var(--space-2) 0;
+  }
+
+  .contact {
+    font-family: var(--font-sans);
+    font-size: var(--fs-meta);
+    color: var(--color-muted);
+  }
+
+  .contact span { white-space: nowrap; }
+  .contact .sep { color: var(--color-rule); padding: 0 var(--space-1); }
+
+  section { margin-bottom: var(--space-4); }
+
+  h2.section-title {
+    font-family: var(--font-sans);
+    font-size: var(--fs-section);
+    text-transform: uppercase;
+    letter-spacing: 1.5pt;
+    color: var(--color-accent);
+    border-bottom: 1px solid var(--color-rule);
+    padding-bottom: var(--space-1);
+    margin: 0 0 var(--space-3) 0;
+  }
+
+  .summary { margin: 0; }
+
+  .entry {
+    margin-bottom: var(--space-3);
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .entry-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-3);
+  }
+
+  .entry-role { font-size: var(--fs-role); font-weight: 700; margin: 0; }
+  .entry-org { color: var(--color-accent); font-style: italic; }
+  .entry-dates {
+    font-family: var(--font-sans);
+    font-size: var(--fs-meta);
+    color: var(--color-muted);
+    white-space: nowrap;
+  }
+
+  ul.bullets { margin: var(--space-1) 0 0 0; padding-left: var(--space-4); }
+  ul.bullets li { margin-bottom: var(--space-1); }
+
+  .edu-entry {
+    margin-bottom: var(--space-2);
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .edu-credential { font-weight: 700; }
+  .edu-org { color: var(--color-accent); font-style: italic; }
+  .edu-dates {
+    font-family: var(--font-sans);
+    font-size: var(--fs-meta);
+    color: var(--color-muted);
+  }
+
+  .skill-row { margin-bottom: var(--space-1); break-inside: avoid; }
+  .skill-cat {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    color: var(--color-ink);
+  }
+  .skill-items { color: var(--color-muted); }
+
+  a { color: var(--color-accent); text-decoration: none; }
+</style>
+</head>
+<body>
+  <header class="masthead">
+    <p class="name">{{profile.name}}</p>
+    <p class="title">{{profile.title}}</p>
+    <p class="contact">
+      <span>{{profile.email}}</span><span class="sep">|</span><span>{{profile.phone}}</span><span class="sep">|</span><span>{{profile.location}}</span>{{#each profile.links}}<span class="sep">|</span><span><a href="{{this.url}}">{{this.label}}</a></span>{{/each}}
+    </p>
+  </header>
+
+  <section>
+    <h2 class="section-title">Profile</h2>
+    <p class="summary">{{profile.summary}}</p>
+  </section>
+
+  <section>
+    <h2 class="section-title">Experience</h2>
+    {{#each experience}}
+    <div class="entry">
+      <div class="entry-head">
+        <p class="entry-role">{{this.role}} &middot; <span class="entry-org">{{this.org}}</span></p>
+        <span class="entry-dates">{{this.dates}}</span>
+      </div>
+      <ul class="bullets">
+        {{#each this.bullets}}
+        <li>{{this}}</li>
+        {{/each}}
+      </ul>
+    </div>
+    {{/each}}
+  </section>
+
+  <section>
+    <h2 class="section-title">Education</h2>
+    {{#each education}}
+    <div class="edu-entry">
+      <span class="edu-credential">{{this.credential}}</span>, <span class="edu-org">{{this.org}}</span>
+      <span class="edu-dates">&nbsp;({{this.dates}})</span>
+    </div>
+    {{/each}}
+  </section>
+
+  <section>
+    <h2 class="section-title">Skills</h2>
+    {{#each skills}}
+    <div class="skill-row">
+      <span class="skill-cat">{{this.category}}:</span>
+      <span class="skill-items">{{#each this.items}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}</span>
+    </div>
+    {{/each}}
+  </section>
+</body>
+</html>

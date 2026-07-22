@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>{{profile.name}} — CV</title>
+<style>
+  /* Shared tokens (mirror of templates/cv/tokens.css — kept in sync verbatim) */
+  :root {
+    --color-ink: #1a2332;
+    --color-muted: #5a6572;
+    --color-rule: #d9d4cc;
+    --color-bg: #ffffff;
+    --color-accent: #2c6e7f;
+    --color-accent-tech: #0e7c86;
+    --font-serif: Georgia, 'Times New Roman', 'Nimbus Roman', serif;
+    --font-sans: 'Helvetica Neue', Helvetica, Arial, 'Liberation Sans', sans-serif;
+    --fs-name: 26pt;
+    --fs-title: 12pt;
+    --fs-section: 11pt;
+    --fs-role: 11.5pt;
+    --fs-body: 10pt;
+    --fs-meta: 9pt;
+    --lh-body: 1.45;
+    --space-1: 3pt;
+    --space-2: 6pt;
+    --space-3: 10pt;
+    --space-4: 16pt;
+    --space-5: 24pt;
+    --page-pad-y: 16mm;
+    --page-pad-x: 16mm;
+  }
+
+  @page { size: A4; margin: 0; }
+
+  * { box-sizing: border-box; }
+
+  html, body { margin: 0; padding: 0; background: var(--color-bg); }
+
+  body {
+    /* Technical skin: sans-forward, sharper, brighter accent — same brand */
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    padding: var(--page-pad-y) var(--page-pad-x);
+  }
+
+  header.masthead {
+    margin-bottom: var(--space-4);
+  }
+
+  .name {
+    font-size: var(--fs-name);
+    font-weight: 800;
+    letter-spacing: -0.4pt;
+    margin: 0;
+    color: var(--color-ink);
+  }
+
+  .title {
+    font-size: var(--fs-title);
+    font-weight: 600;
+    color: var(--color-accent-tech);
+    margin: var(--space-1) 0 var(--space-2) 0;
+    text-transform: uppercase;
+    letter-spacing: 1.2pt;
+  }
+
+  .accent-bar {
+    height: 3pt;
+    width: 46pt;
+    background: var(--color-accent-tech);
+    margin: var(--space-2) 0 var(--space-3) 0;
+  }
+
+  .contact {
+    font-size: var(--fs-meta);
+    color: var(--color-muted);
+  }
+  .contact .sep { color: var(--color-rule); padding: 0 var(--space-1); }
+  .contact span { white-space: nowrap; }
+
+  section { margin-bottom: var(--space-4); }
+
+  h2.section-title {
+    font-size: var(--fs-section);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2pt;
+    color: var(--color-ink);
+    margin: 0 0 var(--space-3) 0;
+    padding-left: var(--space-2);
+    border-left: 3pt solid var(--color-accent-tech);
+  }
+
+  .summary { margin: 0; }
+
+  .entry {
+    margin-bottom: var(--space-3);
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .entry-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-3);
+  }
+
+  .entry-role { font-size: var(--fs-role); font-weight: 700; margin: 0; }
+  .entry-org { color: var(--color-accent-tech); font-weight: 600; }
+  .entry-dates {
+    font-size: var(--fs-meta);
+    color: var(--color-muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  ul.bullets { margin: var(--space-1) 0 0 0; padding-left: var(--space-4); }
+  ul.bullets li { margin-bottom: var(--space-1); }
+
+  .edu-entry {
+    margin-bottom: var(--space-2);
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .edu-credential { font-weight: 700; }
+  .edu-org { color: var(--color-accent-tech); font-weight: 600; }
+  .edu-dates { font-size: var(--fs-meta); color: var(--color-muted); }
+
+  .skill-row { margin-bottom: var(--space-1); break-inside: avoid; }
+  .skill-cat { font-weight: 700; color: var(--color-ink); }
+  .skill-items { color: var(--color-muted); }
+
+  a { color: var(--color-accent-tech); text-decoration: none; }
+</style>
+</head>
+<body>
+  <header class="masthead">
+    <p class="name">{{profile.name}}</p>
+    <p class="title">{{profile.title}}</p>
+    <div class="accent-bar"></div>
+    <p class="contact">
+      <span>{{profile.email}}</span><span class="sep">/</span><span>{{profile.phone}}</span><span class="sep">/</span><span>{{profile.location}}</span>{{#each profile.links}}<span class="sep">/</span><span><a href="{{this.url}}">{{this.label}}</a></span>{{/each}}
+    </p>
+  </header>
+
+  <section>
+    <h2 class="section-title">Profile</h2>
+    <p class="summary">{{profile.summary}}</p>
+  </section>
+
+  <section>
+    <h2 class="section-title">Experience</h2>
+    {{#each experience}}
+    <div class="entry">
+      <div class="entry-head">
+        <p class="entry-role">{{this.role}} <span class="entry-org">@ {{this.org}}</span></p>
+        <span class="entry-dates">{{this.dates}}</span>
+      </div>
+      <ul class="bullets">
+        {{#each this.bullets}}
+        <li>{{this}}</li>
+        {{/each}}
+      </ul>
+    </div>
+    {{/each}}
+  </section>
+
+  <section>
+    <h2 class="section-title">Education</h2>
+    {{#each education}}
+    <div class="edu-entry">
+      <span class="edu-credential">{{this.credential}}</span> &mdash; <span class="edu-org">{{this.org}}</span>
+      <span class="edu-dates">({{this.dates}})</span>
+    </div>
+    {{/each}}
+  </section>
+
+  <section>
+    <h2 class="section-title">Skills</h2>
+    {{#each skills}}
+    <div class="skill-row">
+      <span class="skill-cat">{{this.category}}:</span>
+      <span class="skill-items">{{#each this.items}}{{this}}{{#unless @last}} &middot; {{/unless}}{{/each}}</span>
+    </div>
+    {{/each}}
+  </section>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>{{profile.name}}</h1>
+<p>{{profile.summary}}</p>
+<ul>
+{{#each experience}}
+  <li>{{this.role}} at {{this.org}}
+    <ul>
+    {{#each this.bullets}}
+      <li>{{this}}</li>
+    {{/each}}
+    </ul>
+  </li>
+{{/each}}
+</ul>
+</body>
+</html>

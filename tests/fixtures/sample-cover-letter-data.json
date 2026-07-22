@@ -1,0 +1,17 @@
+{
+  "profile": {
+    "name": "Jamie Test",
+    "email": "jamie@example.com",
+    "phone": "+64 21 123 4567",
+    "date": "1 July 2026"
+  },
+  "recipient": {
+    "company": "Test University",
+    "hiring_manager": ""
+  },
+  "body_paragraphs": [
+    "I am writing to apply for the Admissions Advisor role at Test University.",
+    "In my current role I increased enrollment conversion by 15% through targeted follow-up.",
+    "I would welcome the opportunity to bring this approach to your admissions team."
+  ]
+}

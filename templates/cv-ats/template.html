@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>{{profile.name}} - CV</title>
+<style>
+  /*
+   * ATS-safe template: plain, single-column, linear reading order.
+   * No tables, no images, no CSS grid, no multi-column, no icons.
+   * Just a readable serif document an ATS parser can flatten cleanly.
+   */
+  @page { size: A4; margin: 0; }
+
+  html, body { margin: 0; padding: 0; background: #ffffff; }
+
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    color: #000000;
+    font-size: 11pt;
+    line-height: 1.4;
+    /* Page padding baked in — render-pdf.mjs uses zero PDF margins. */
+    padding: 18mm 18mm;
+  }
+
+  h1 {
+    font-size: 18pt;
+    margin: 0 0 2pt 0;
+  }
+
+  .title {
+    font-size: 12pt;
+    margin: 0 0 4pt 0;
+  }
+
+  .contact {
+    font-size: 10pt;
+    margin: 0 0 12pt 0;
+  }
+
+  h2 {
+    font-size: 12pt;
+    text-transform: uppercase;
+    letter-spacing: 1pt;
+    border-bottom: 1px solid #000000;
+    padding-bottom: 2pt;
+    margin: 14pt 0 6pt 0;
+  }
+
+  p { margin: 0 0 6pt 0; }
+
+  .entry { margin-bottom: 10pt; }
+
+  .entry-role { font-weight: bold; margin: 0; }
+  .entry-meta { margin: 0 0 3pt 0; font-style: italic; }
+
+  ul { margin: 3pt 0 0 0; padding-left: 18pt; }
+  li { margin-bottom: 2pt; }
+
+  .edu-entry { margin-bottom: 6pt; }
+  .skill-line { margin-bottom: 3pt; }
+</style>
+</head>
+<body>
+  <h1>{{profile.name}}</h1>
+  <p class="title">{{profile.title}}</p>
+  <p class="contact">
+    Email: {{profile.email}} | Phone: {{profile.phone}} | Location: {{profile.location}}{{#each profile.links}} | {{this.label}}: {{this.url}}{{/each}}
+  </p>
+
+  <h2>Summary</h2>
+  <p>{{profile.summary}}</p>
+
+  <h2>Experience</h2>
+  {{#each experience}}
+  <div class="entry">
+    <p class="entry-role">{{this.role}}</p>
+    <p class="entry-meta">{{this.org}} | {{this.dates}}</p>
+    <ul>
+      {{#each this.bullets}}
+      <li>{{this}}</li>
+      {{/each}}
+    </ul>
+  </div>
+  {{/each}}
+
+  <h2>Education</h2>
+  {{#each education}}
+  <div class="edu-entry">
+    <p class="entry-role">{{this.credential}}</p>
+    <p class="entry-meta">{{this.org}} | {{this.dates}}</p>
+  </div>
+  {{/each}}
+
+  <h2>Skills</h2>
+  {{#each skills}}
+  <p class="skill-line"><strong>{{this.category}}:</strong> {{#each this.items}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}</p>
+  {{/each}}
+</body>
+</html>

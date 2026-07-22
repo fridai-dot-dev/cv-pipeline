@@ -1,0 +1,20 @@
+{
+  "name": "cv-pipeline",
+  "version": "0.1.0",
+  "type": "module",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "test": "LD_LIBRARY_PATH=.browser-libs vitest run",
+    "test:setup": "node scripts/install-browser-deps.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.61.1",
+    "docx": "^9.7.1",
+    "handlebars": "^4.7.9"
+  },
+  "devDependencies": {
+    "vitest": "^4.1.9",
+    "pdf-parse": "^2.4.5",
+    "mammoth": "^1.12.0"
+  }
+}

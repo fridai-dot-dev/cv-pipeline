@@ -1,0 +1,16 @@
+# Node
+node_modules/
+
+# Generated application artifacts (personal data, binary outputs)
+applications/*/
+!applications/.gitkeep
+
+# WSL2 Playwright system libs (bootstrapped by scripts/install-browser-deps.mjs)
+.browser-libs/
+
+# Playwright browser binaries
+.cache/ms-playwright/
+
+# OS / editor
+.DS_Store
+*.log

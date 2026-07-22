@@ -1,0 +1,53 @@
+/*
+ * tokens.css — Bart Lind CV/résumé design system (single source of truth)
+ * ---------------------------------------------------------------------------
+ * These :root custom properties define the shared personal brand: palette,
+ * type pairing, spacing scale, and print rules. Both skins (professional.html,
+ * technical.html) and both cover-letter templates mirror these values VERBATIM
+ * inside their own inline <style> blocks, because renderPdf() feeds HTML to
+ * Chromium via page.setContent() with no base URL — external stylesheet links
+ * do NOT resolve at render time. Keep this file and the inline copies in sync.
+ *
+ * Only web-safe / system font stacks are used: there is no font server at
+ * render time. No viewport units (vw/vh/vmin) — those are unstable in
+ * page.pdf(). Page padding is baked into the body because render-pdf.mjs
+ * hardcodes zero PDF margins.
+ */
+
+:root {
+  /* --- Palette (shared brand) --- */
+  --color-ink: #1a2332;          /* primary text / headings */
+  --color-muted: #5a6572;        /* secondary text, dates, meta */
+  --color-rule: #d9d4cc;         /* hairline rules and dividers */
+  --color-bg: #ffffff;           /* page background */
+  --color-accent: #2c6e7f;       /* professional accent (teal-slate) */
+  --color-accent-tech: #0e7c86;  /* technical accent (brighter teal) */
+
+  /* --- Type pairing --- */
+  --font-serif: Georgia, 'Times New Roman', 'Nimbus Roman', serif;
+  --font-sans: 'Helvetica Neue', Helvetica, Arial, 'Liberation Sans', sans-serif;
+
+  /* --- Type scale --- */
+  --fs-name: 26pt;
+  --fs-title: 12pt;
+  --fs-section: 11pt;
+  --fs-role: 11.5pt;
+  --fs-body: 10pt;
+  --fs-meta: 9pt;
+  --lh-body: 1.45;
+
+  /* --- Spacing scale --- */
+  --space-1: 3pt;
+  --space-2: 6pt;
+  --space-3: 10pt;
+  --space-4: 16pt;
+  --space-5: 24pt;
+  --page-pad-y: 16mm;   /* baked page padding (no PDF-engine margin) */
+  --page-pad-x: 16mm;
+}
+
+/* Print rules shared by every template */
+@page {
+  size: A4;
+  margin: 0;
+}

@@ -1,0 +1,28 @@
+{
+  "profile": {
+    "name": "Jamie Test",
+    "title": "Sales Professional",
+    "email": "jamie@example.com",
+    "phone": "+64 21 123 4567",
+    "location": "Auckland, NZ",
+    "links": [{ "label": "LinkedIn", "url": "https://linkedin.com/in/jamietest" }],
+    "summary": "Results-driven sales professional with 5 years of experience."
+  },
+  "experience": [
+    {
+      "role": "Admissions Advisor",
+      "org": "Test University",
+      "dates": "2022 - Present",
+      "bullets": [
+        "Increased enrollment conversion by 15% through targeted follow-up",
+        "Managed a portfolio of 200+ prospective student relationships"
+      ]
+    }
+  ],
+  "education": [
+    { "credential": "BA Communications", "org": "Test University", "dates": "2018 - 2021" }
+  ],
+  "skills": [
+    { "category": "CRM", "items": ["Salesforce", "HubSpot"] }
+  ]
+}
